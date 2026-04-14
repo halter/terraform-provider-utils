@@ -23,7 +23,7 @@ func TestCIDRContainsFunction_IPv4_Contains(t *testing.T) {
 			{
 				Config: `
 				output "test" {
-					value = provider::scaffolding::cidrcontains("10.0.0.0/8", "10.1.0.0/16")
+					value = provider::utils::cidrcontains("10.0.0.0/8", "10.1.0.0/16")
 				}
 				`,
 				ConfigStateChecks: []statecheck.StateCheck{
@@ -44,7 +44,7 @@ func TestCIDRContainsFunction_IPv4_SingleHost(t *testing.T) {
 			{
 				Config: `
 				output "test" {
-					value = provider::scaffolding::cidrcontains("10.0.0.0/8", "10.1.2.3/32")
+					value = provider::utils::cidrcontains("10.0.0.0/8", "10.1.2.3/32")
 				}
 				`,
 				ConfigStateChecks: []statecheck.StateCheck{
@@ -65,7 +65,7 @@ func TestCIDRContainsFunction_IPv4_NotContains(t *testing.T) {
 			{
 				Config: `
 				output "test" {
-					value = provider::scaffolding::cidrcontains("10.0.0.0/8", "192.168.1.0/24")
+					value = provider::utils::cidrcontains("10.0.0.0/8", "192.168.1.0/24")
 				}
 				`,
 				ConfigStateChecks: []statecheck.StateCheck{
@@ -86,7 +86,7 @@ func TestCIDRContainsFunction_IPv4_InnerWiderThanOuter(t *testing.T) {
 			{
 				Config: `
 				output "test" {
-					value = provider::scaffolding::cidrcontains("10.1.0.0/16", "10.0.0.0/8")
+					value = provider::utils::cidrcontains("10.1.0.0/16", "10.0.0.0/8")
 				}
 				`,
 				ConfigStateChecks: []statecheck.StateCheck{
@@ -107,7 +107,7 @@ func TestCIDRContainsFunction_IPv6_Contains(t *testing.T) {
 			{
 				Config: `
 				output "test" {
-					value = provider::scaffolding::cidrcontains("fd00::/16", "fd00:1::/32")
+					value = provider::utils::cidrcontains("fd00::/16", "fd00:1::/32")
 				}
 				`,
 				ConfigStateChecks: []statecheck.StateCheck{
@@ -128,7 +128,7 @@ func TestCIDRContainsFunction_IPv6_NotContains(t *testing.T) {
 			{
 				Config: `
 				output "test" {
-					value = provider::scaffolding::cidrcontains("fd00::/16", "fe80::/10")
+					value = provider::utils::cidrcontains("fd00::/16", "fe80::/10")
 				}
 				`,
 				ConfigStateChecks: []statecheck.StateCheck{
@@ -149,7 +149,7 @@ func TestCIDRContainsFunction_AddressFamilyMismatch(t *testing.T) {
 			{
 				Config: `
 				output "test" {
-					value = provider::scaffolding::cidrcontains("10.0.0.0/8", "fd00::/16")
+					value = provider::utils::cidrcontains("10.0.0.0/8", "fd00::/16")
 				}
 				`,
 				ExpectError: regexp.MustCompile(`address family mismatch`),
@@ -168,7 +168,7 @@ func TestCIDRContainsFunction_InvalidContainingPrefix(t *testing.T) {
 			{
 				Config: `
 				output "test" {
-					value = provider::scaffolding::cidrcontains("not-a-cidr", "10.0.0.0/8")
+					value = provider::utils::cidrcontains("not-a-cidr", "10.0.0.0/8")
 				}
 				`,
 				ExpectError: regexp.MustCompile(`invalid CIDR prefix`),
@@ -187,7 +187,7 @@ func TestCIDRContainsFunction_InvalidContainedPrefix(t *testing.T) {
 			{
 				Config: `
 				output "test" {
-					value = provider::scaffolding::cidrcontains("10.0.0.0/8", "not-a-cidr")
+					value = provider::utils::cidrcontains("10.0.0.0/8", "not-a-cidr")
 				}
 				`,
 				ExpectError: regexp.MustCompile(`invalid CIDR prefix`),
@@ -206,7 +206,7 @@ func TestCIDRContainsFunction_Null(t *testing.T) {
 			{
 				Config: `
 				output "test" {
-					value = provider::scaffolding::cidrcontains(null, "10.0.0.0/8")
+					value = provider::utils::cidrcontains(null, "10.0.0.0/8")
 				}
 				`,
 				ExpectError: regexp.MustCompile(`argument must not be null`),
@@ -225,7 +225,7 @@ func TestCIDRContainsFunction_ExactMatch(t *testing.T) {
 			{
 				Config: `
 				output "test" {
-					value = provider::scaffolding::cidrcontains("10.0.0.0/8", "10.0.0.0/8")
+					value = provider::utils::cidrcontains("10.0.0.0/8", "10.0.0.0/8")
 				}
 				`,
 				ConfigStateChecks: []statecheck.StateCheck{

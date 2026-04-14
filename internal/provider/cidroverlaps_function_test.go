@@ -23,7 +23,7 @@ func TestCIDROverlapsFunction_IPv4_OverlapsSubset(t *testing.T) {
 			{
 				Config: `
 				output "test" {
-					value = provider::scaffolding::cidroverlaps("10.0.0.0/8", "10.1.0.0/16")
+					value = provider::utils::cidroverlaps("10.0.0.0/8", "10.1.0.0/16")
 				}
 				`,
 				ConfigStateChecks: []statecheck.StateCheck{
@@ -44,7 +44,7 @@ func TestCIDROverlapsFunction_IPv4_OverlapsSuperset(t *testing.T) {
 			{
 				Config: `
 				output "test" {
-					value = provider::scaffolding::cidroverlaps("10.1.0.0/16", "10.0.0.0/8")
+					value = provider::utils::cidroverlaps("10.1.0.0/16", "10.0.0.0/8")
 				}
 				`,
 				ConfigStateChecks: []statecheck.StateCheck{
@@ -65,7 +65,7 @@ func TestCIDROverlapsFunction_IPv4_NoOverlap(t *testing.T) {
 			{
 				Config: `
 				output "test" {
-					value = provider::scaffolding::cidroverlaps("10.0.0.0/8", "192.168.0.0/16")
+					value = provider::utils::cidroverlaps("10.0.0.0/8", "192.168.0.0/16")
 				}
 				`,
 				ConfigStateChecks: []statecheck.StateCheck{
@@ -86,7 +86,7 @@ func TestCIDROverlapsFunction_IPv4_ExactMatch(t *testing.T) {
 			{
 				Config: `
 				output "test" {
-					value = provider::scaffolding::cidroverlaps("10.0.0.0/8", "10.0.0.0/8")
+					value = provider::utils::cidroverlaps("10.0.0.0/8", "10.0.0.0/8")
 				}
 				`,
 				ConfigStateChecks: []statecheck.StateCheck{
@@ -107,7 +107,7 @@ func TestCIDROverlapsFunction_IPv4_AdjacentNoOverlap(t *testing.T) {
 			{
 				Config: `
 				output "test" {
-					value = provider::scaffolding::cidroverlaps("10.0.0.0/25", "10.0.0.128/25")
+					value = provider::utils::cidroverlaps("10.0.0.0/25", "10.0.0.128/25")
 				}
 				`,
 				ConfigStateChecks: []statecheck.StateCheck{
@@ -128,7 +128,7 @@ func TestCIDROverlapsFunction_IPv6_Overlaps(t *testing.T) {
 			{
 				Config: `
 				output "test" {
-					value = provider::scaffolding::cidroverlaps("fd00::/16", "fd00:1::/32")
+					value = provider::utils::cidroverlaps("fd00::/16", "fd00:1::/32")
 				}
 				`,
 				ConfigStateChecks: []statecheck.StateCheck{
@@ -149,7 +149,7 @@ func TestCIDROverlapsFunction_IPv6_NoOverlap(t *testing.T) {
 			{
 				Config: `
 				output "test" {
-					value = provider::scaffolding::cidroverlaps("fd00::/16", "fe80::/10")
+					value = provider::utils::cidroverlaps("fd00::/16", "fe80::/10")
 				}
 				`,
 				ConfigStateChecks: []statecheck.StateCheck{
@@ -170,7 +170,7 @@ func TestCIDROverlapsFunction_AddressFamilyMismatch(t *testing.T) {
 			{
 				Config: `
 				output "test" {
-					value = provider::scaffolding::cidroverlaps("10.0.0.0/8", "fd00::/16")
+					value = provider::utils::cidroverlaps("10.0.0.0/8", "fd00::/16")
 				}
 				`,
 				ExpectError: regexp.MustCompile(`address family mismatch`),
@@ -189,7 +189,7 @@ func TestCIDROverlapsFunction_InvalidPrefixA(t *testing.T) {
 			{
 				Config: `
 				output "test" {
-					value = provider::scaffolding::cidroverlaps("not-a-cidr", "10.0.0.0/8")
+					value = provider::utils::cidroverlaps("not-a-cidr", "10.0.0.0/8")
 				}
 				`,
 				ExpectError: regexp.MustCompile(`invalid CIDR prefix`),
@@ -208,7 +208,7 @@ func TestCIDROverlapsFunction_InvalidPrefixB(t *testing.T) {
 			{
 				Config: `
 				output "test" {
-					value = provider::scaffolding::cidroverlaps("10.0.0.0/8", "not-a-cidr")
+					value = provider::utils::cidroverlaps("10.0.0.0/8", "not-a-cidr")
 				}
 				`,
 				ExpectError: regexp.MustCompile(`invalid CIDR prefix`),
@@ -227,7 +227,7 @@ func TestCIDROverlapsFunction_Null(t *testing.T) {
 			{
 				Config: `
 				output "test" {
-					value = provider::scaffolding::cidroverlaps(null, "10.0.0.0/8")
+					value = provider::utils::cidroverlaps(null, "10.0.0.0/8")
 				}
 				`,
 				ExpectError: regexp.MustCompile(`argument must not be null`),
