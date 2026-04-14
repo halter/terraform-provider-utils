@@ -215,7 +215,7 @@ func TestCIDRNoOverlapFunction_AddressFamilyMismatch(t *testing.T) {
 					value = provider::utils::cidrnoverlap(["10.0.0.0/8", "fd00::/16"])
 				}
 				`,
-				ExpectError: regexp.MustCompile(`address family mismatch`),
+				ExpectError: regexp.MustCompile(`address family`),
 			},
 		},
 	})

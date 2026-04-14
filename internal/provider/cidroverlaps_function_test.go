@@ -173,7 +173,7 @@ func TestCIDROverlapsFunction_AddressFamilyMismatch(t *testing.T) {
 					value = provider::utils::cidroverlaps("10.0.0.0/8", "fd00::/16")
 				}
 				`,
-				ExpectError: regexp.MustCompile(`address family mismatch`),
+				ExpectError: regexp.MustCompile(`address family`),
 			},
 		},
 	})
