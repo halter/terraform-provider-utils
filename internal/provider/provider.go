@@ -48,6 +48,7 @@ func (p *UtilsProvider) Functions(_ context.Context) []func() function.Function 
 		NewCIDRContainsFunction,
 		NewCIDROverlapsFunction,
 		NewCIDRNoOverlapFunction,
+		NewParseTree,
 	}
 }
 
